@@ -66,12 +66,11 @@ app.post('/products', async (req, res) => {
 app.get('/products', async (req, res) => {
   try {
     const price = req.query.price;
-
     let products;
     if (price) {
-      products = await Product.find({ price: { $gt: price } });
+      products = await Product.find({ price: { $gt: price } }).countDocuments();
     } else {
-      products = await Product.find();
+      products = await Product.find().countDocuments();
     }
 
     if (products) {
