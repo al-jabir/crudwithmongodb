@@ -119,6 +119,20 @@ app.delete('/products/:id', async (req, res) => {
   }
 });
 
+app.put('/products/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const uProduct = await Product.findByIdAndUpdate({ _id: id });
+    if (!uProduct) {
+      res.status(404).send({ message: 'updated not successfully' });
+    } else {
+      res.status(200).send({ success: true, message: 'updated successfully', data: uProduct });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 // post: /products -> create a new product
 // Get: /products -> Return a list of products
 // Get: /products/:id -> return a specific product
