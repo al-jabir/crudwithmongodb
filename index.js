@@ -68,9 +68,9 @@ app.get('/products', async (req, res) => {
     const price = req.query.price;
     let products;
     if (price) {
-      products = await Product.find({ price: { $gt: price } }).countDocuments();
+      products = await Product.find({ price: { $gt: price } }).sort({ price: 1 });
     } else {
-      products = await Product.find().countDocuments();
+      products = await Product.find().sort({ price: 1 });
     }
 
     if (products) {
