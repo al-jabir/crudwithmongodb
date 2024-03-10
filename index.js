@@ -105,6 +105,20 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
+app.delete('/products/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const dproduct = await Product.findByIdAndDelete({ _id: id });
+    if (!dproduct) {
+      res.status(404).send({ success: false, message: 'product not found' });
+    } else {
+      res.status(200).send({ success: true, message: 'deleted successfully', data: dproduct });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 // post: /products -> create a new product
 // Get: /products -> Return a list of products
 // Get: /products/:id -> return a specific product
