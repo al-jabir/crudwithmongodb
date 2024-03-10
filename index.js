@@ -13,8 +13,14 @@ app.get('/', (req, res) => {
 // create product schema
 
 const prodoctsSchema = new mongoose.Schema({
-  title: String,
-  price: String,
+  title: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true,
+  },
   ccreatedAt: { type: Date, default: Date.now },
 });
 
