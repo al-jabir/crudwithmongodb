@@ -57,7 +57,7 @@ app.post('/products', async (req, res) => {
     });
 
     const productData = await newProduct.save();
-    res.status(201).send({ success: true, productData });
+    res.status(201).send({ success: true, message: 'Product saved successfully', productData });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -122,7 +122,11 @@ app.delete('/products/:id', async (req, res) => {
 app.put('/products/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const uProduct = await Product.findByIdAndUpdate({ _id: id });
+    const uProduct = await Product.findByIdAndUpdate(
+      { _id: id },
+      { title: req.body.title, price: req.body.price },
+      { new: true }
+    );
     if (!uProduct) {
       res.status(404).send({ message: 'updated not successfully' });
     } else {
