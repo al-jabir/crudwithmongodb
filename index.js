@@ -68,8 +68,8 @@ app.get('/products', async (req, res) => {
     const price = req.query.price;
 
     let products;
-    if (price) {
-      products = await Product.find({ price: { $gt: price } });
+    if (true) {
+      products = await Product.find({ $or: [{ $gt: price }, { rating: { $gt: 4 } }] });
     } else {
       products = await Product.find();
     }
